@@ -1,0 +1,7 @@
+This repo contains the code and code book for the Getting and Cleaning programming project from JHU's Coursera Data Science Specialization.
+
+The script in run_analysis will 1.  Create a directory to store the downloaded information; 2. Download and unzip the data; 3. load the data 
+into R and transform it into a tidy data set with requested data as assigned.  Finally, the tidy data set is written as a text file to 
+the computer.  This will satisfy the parameters of the project.
+
+Scripting details and justifications can be found in Codebook.md in this repository.
