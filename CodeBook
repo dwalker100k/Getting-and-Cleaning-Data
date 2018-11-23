@@ -1,0 +1,46 @@
+There are 89 lines of code.
+
+Lines 1-10 are text that describe what the program will do:
+
+## The following program will:
+##  1.Merge the training and the test sets to create one data set.
+##  2.Extract only the measurements on the mean and standard deviation for each measurement. 
+##  3.Use descriptive activity names to name the activities in the data set
+##  4.Appropriately label the data set with descriptive variable names. 
+##  5.From the data set in step 4, creates a second, independent tidy data set 
+##    with the average of each variable for each activity and each subject.
+
+Lines 11-20 create the directory to house the downloaded data, and then downloads the data.
+
+Lines 25-48 download the raw text files into R objects and then combines the objects into a single data set.  This completes
+Step 1.
+
+At this point, the data set has no column lables.
+
+Line 52 reads the names of the feature vector variables into an object called feature_names.  When the feature vector is read initially,
+there are two columns of variables, V1 and V2. V2 contains the names that we want, so that is why we subset on the second column after 
+reading in the text file.
+
+Line 57 captures the mean and standard deviation measurement index locations in feature_names. Using grep, the code looks for the
+upper and/or lower case strings of 'mean' and 'std' to find the desired meaurements.  The index locations are stored in a vector
+called MeanstdIndex.
+
+We now need to subset the full data set into the measurements we want, along with Participant ID and Activity.  Line 59 does
+just that by taking the full data set, taking all of the rows, and then taking columns 1, 2, and the features index locations plus 2.
+The reason we must use the index locations plus two is that they are shifted two places to the right in the data set.  The index
+vector captured the values within the length of feature, but the dataset has two additional columns--Participant and Activity;
+Hence the plus 2.
+
+Line 61 renames the columns in the desired, smaller dataset.  This complete step 2 above.
+
+The Activity column is coded in values 1 thru 6 and we wish these to be descriptive of the actual activity.  Line 67 reads in the 
+activity names from the text file.  Line 69 transforms the Activity column to a factor variable with levels being in column 1 and
+labels being in column 2 of activity_names.  The Activity column now has the descriptive names as desired. This completes Step 3.
+
+Lines 70-80 clean up some of the names in the feature vectors using gsub and some regular expressions.
+
+Lines 80-89 bring in the dplyr library which aids in grouping the data.  The data are grouped by participant and Activity and the mean 
+function is applied to all of the featured variables via the grouping.  Finally, the new tidy data set is written to a file called
+"tidyset.txt".
+
+This completes the project.
